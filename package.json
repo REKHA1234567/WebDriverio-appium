@@ -15,6 +15,7 @@
     "wdio": "wdio run ./wdio.conf.js"
   },
   "dependencies": {
-    "chai": "^4.3.7"
+    "chai": "^4.3.7",
+    "pixelmatch": "^5.3.0"
   }
 }
