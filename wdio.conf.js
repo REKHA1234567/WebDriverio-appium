@@ -57,12 +57,13 @@ exports.config = {
     capabilities: [{
         'appium:platformName':'Android',
         'appium:platformVersion':'11.0',
-        'appium:deviceName':'Pixel 6',
+        'appium:deviceName':'Pixel_5',
         'appium:automationName':'UIAutomator2',
         'appium:app':path.join(process.cwd(),'app/android/Android-NativeDemoApp-0.4.0.apk'),
         "appium:appPackage": "com.wdiodemoapp",
         "appium:appActivity": "com.wdiodemoapp.SplashActivity"       
     }],
+    
     //
     // ===================
     // Test Configurations

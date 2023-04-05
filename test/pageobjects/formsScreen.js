@@ -17,6 +17,9 @@ class formsScreen{
     get SelectItem_dd_options(){
         return $$('//*[@resource-id="android:id/text1"]')
     }   
+    get selectfirstoption(){
+        return $('//*[@text="webdriver.io is awesome"]')
+    }
     get screenBoundary(){
         return $('//*[@resource-id="com.wdiodemoapp:id/select_dialog_listview"]')
     }
