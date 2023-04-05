@@ -7,18 +7,18 @@ const homeScreen = require('../pageobjects/homeScreen.js');
 
 describe('Assesment', async() => {  
     
-    xit('Validate the default selection of the tab', async() => {
+    it('Validate the default selection of the tab', async() => {
         await expect(HomeScreen.homeScreen).toBeDisplayed() //assertion: Home-screen is displayed
         await expect(HomeScreen.homeIcon).toBeSelected(); //assertion: Home-icon is by default selected:true
     });     
 
-    xit('Validate that form tab is available for selection and is clickable',async()=>{         
+    it('Validate that form tab is available for selection and is clickable',async()=>{         
          await expect(HomeScreen.Forms_icon).toBeEnabled() //assertion: Form-icon is existing       
          let isClickable = await HomeScreen.Forms_icon.getAttribute('clickable')
          expect(isClickable).toEqual('true');
     })   
 
-    xit('Validate the color change on the selection of the form tab //use img comparision',async()=>{
+    it('Validate the color change on the selection of the form tab //use img comparision',async()=>{
         
         //taking the screeshot before color change
         const beforeImage = await driver.takeScreenshot();       
@@ -41,7 +41,7 @@ describe('Assesment', async() => {
         expect(diff).not.toBe(0);
     }) 
 
-    xit('Validate the Input behavior is working as intended',async()=>{
+    it('Validate the Input behavior is working as intended',async()=>{
        
         await HomeScreen.Forms_icon.click();
 
@@ -59,7 +59,7 @@ describe('Assesment', async() => {
         await expect(formsScreen.switchText).toHaveText('Click to turn the switch OFF')
     })
 
-    xit('Validate that picker element is working and it has 3 options to choose from',async()=>{    
+    it('Validate that picker element is working and it has 3 options to choose from',async()=>{    
         await homeScreen.Forms_icon.click();
         await formsScreen.SelectItem_dd.click()
         let expectedList=['Select an item...','webdriver.io is awesome','Appium is awesome','This app is awesome']
@@ -95,12 +95,12 @@ describe('Assesment', async() => {
    
     })
 
-    xit('Validate that Inactive button is not interactable',async()=>{        
+    it('Validate that Inactive button is not interactable',async()=>{        
         await homeScreen.Forms_icon.click();    
         await expect(formsScreen.inactiveButton).not.toBeEnabled()
     })
 
-    xit('Validate that android native alerts are functional',async()=>{    
+    it('Validate that android native alerts are functional',async()=>{    
         await homeScreen.Forms_icon.click();
         await formsScreen.activeButton.click()
         let alertText = await driver.getAlertText();
@@ -108,7 +108,7 @@ describe('Assesment', async() => {
         await expect(formsScreen.alert_text).not.toExist();
     })
 
-    xit('Validate that keyboard is available to provide input in the text',async()=>{  
+    it('Validate that keyboard is available to provide input in the text',async()=>{  
                 await homeScreen.Forms_icon.click();
                 await formsScreen.textInput.click()
                 let text = "webdriver"
