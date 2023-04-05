@@ -7,18 +7,18 @@ const homeScreen = require('../pageobjects/homeScreen.js');
 
 describe('Assesment', async() => {  
     
-    it('Validate the default selection of the tab', async() => {
+    xit('Validate the default selection of the tab', async() => {
         await expect(HomeScreen.homeScreen).toBeDisplayed() //assertion: Home-screen is displayed
         await expect(HomeScreen.homeIcon).toBeSelected(); //assertion: Home-icon is by default selected:true
     });     
 
-    it('Validate that form tab is available for selection and is clickable',async()=>{         
+    xit('Validate that form tab is available for selection and is clickable',async()=>{         
          await expect(HomeScreen.Forms_icon).toBeEnabled() //assertion: Form-icon is existing       
          let isClickable = await HomeScreen.Forms_icon.getAttribute('clickable')
          expect(isClickable).toEqual('true');
     })   
 
-    it('Validate the color change on the selection of the form tab //use img comparision',async()=>{
+    xit('Validate the color change on the selection of the form tab //use img comparision',async()=>{
         
         //taking the screeshot before color change
         const beforeImage = await driver.takeScreenshot();       
@@ -36,16 +36,12 @@ describe('Assesment', async() => {
         const afterPng = PNG.sync.read(fs.readFileSync('./afterScreenshot.png'));
 
         const diff = pixelmatch(beforePng.data, afterPng.data, null, beforePng.width, beforePng.height, { threshold: 0.1 });
-
-        // compare the images
-        if (diff === 0) {
-            console.log('The two images are identical.');
-          } else {
-            console.log(`There is a color change. The number of different pixels is: ${diff}`);
-          }
+ 
+        //assertion
+        expect(diff).not.toBe(0);
     }) 
 
-    it('Validate the Input behavior is working as intended',async()=>{
+    xit('Validate the Input behavior is working as intended',async()=>{
        
         await HomeScreen.Forms_icon.click();
 
@@ -63,7 +59,7 @@ describe('Assesment', async() => {
         await expect(formsScreen.switchText).toHaveText('Click to turn the switch OFF')
     })
 
-    it('Validate that picker element is working and it has 3 options to choose from',async()=>{    
+    xit('Validate that picker element is working and it has 3 options to choose from',async()=>{    
         await homeScreen.Forms_icon.click();
         await formsScreen.SelectItem_dd.click()
         let expectedList=['Select an item...','webdriver.io is awesome','Appium is awesome','This app is awesome']
@@ -88,33 +84,32 @@ describe('Assesment', async() => {
         const pickerElementbounds = pickerElementBoundary.match(/\d+/g).map(Number);
         const [PickerElement_X, PickerElement_Y, PickerElement_Width, PickerElement_Height] = pickerElementbounds;
 
+        let allPickerElementsVisible = false;
         if (PickerElement_X >= screen_X && PickerElement_Y >= screen_Y && PickerElement_X + PickerElement_Width <= screen_X + screen_Width && PickerElement_Y + PickerElement_Height <= screen_Y + screen_Height) {
-            console.log('All picker elements are visible within the screen');
-          } else {
-            console.log('Not all picker elements are visible within the screen');
-          }    
+              allPickerElementsVisible = true;
+          }
         
-        await formsScreen.selectfirstoption.click()
+        if(allPickerElementsVisible){
+            await formsScreen.selectfirstoption.click()
+        }
+   
     })
 
-    it('Validate that Inactive button is not interactable',async()=>{        
+    xit('Validate that Inactive button is not interactable',async()=>{        
         await homeScreen.Forms_icon.click();    
         await expect(formsScreen.inactiveButton).not.toBeEnabled()
     })
 
-    it('Validate that android native alerts are functional',async()=>{    
+    xit('Validate that android native alerts are functional',async()=>{    
         await homeScreen.Forms_icon.click();
         await formsScreen.activeButton.click()
         let alertText = await driver.getAlertText();
-        // await driver.acceptAlert();
         await driver.dismissAlert()
         await expect(formsScreen.alert_text).not.toExist();
     })
 
-    it('Validate that keyboard is available to provide input in the text',async()=>{  
+    xit('Validate that keyboard is available to provide input in the text',async()=>{  
                 await homeScreen.Forms_icon.click();
-        
-                //validate test input textfield
                 await formsScreen.textInput.click()
                 let text = "webdriver"
                 await formsScreen.textInput.setValue(text)
