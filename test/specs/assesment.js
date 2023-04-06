@@ -121,7 +121,6 @@ describe('Assesment', async() => {
                 await homeScreen.Forms_icon.click();
                 await formsScreen.textInput.click()
                 const isKeyboardVisible = await driver.isKeyboardShown();
-                // expect(isKeyboardVisible).to.be.true;
                 await expect(isKeyboardVisible).toEqual(true)
                 let text = "webdriver"
                 await formsScreen.textInput.setValue(text)
