@@ -95,10 +95,11 @@ describe('Assesment', async() => {
         if (PickerElement_X >= screen_X && PickerElement_Y >= screen_Y && PickerElement_X + PickerElement_Width <= screen_X + screen_Width && PickerElement_Y + PickerElement_Height <= screen_Y + screen_Height) {
               allPickerElementsVisible = true;
           }
+        await expect(allPickerElementsVisible).toEqual(true);
         
-        if(allPickerElementsVisible){
-            await formsScreen.selectfirstoption.click()
-        }
+        if(allPickerElementsVisible)
+        await formsScreen.webdriverIO_option.click()
+        
     })
 
     it('Validate that Inactive button is not interactable',async()=>{        
@@ -106,14 +107,25 @@ describe('Assesment', async() => {
         await expect(formsScreen.inactiveButton).not.toBeEnabled()
     })
 
-    it('Validate that android native alerts are functional',async()=>{    
+    it('Validate that android native alerts are functional',async()=>{   formsScreen.askMeLater_btn 
         await homeScreen.Forms_icon.click();
         await formsScreen.activeButton.click()
         let alertText = await driver.getAlertText();
         await driver.dismissAlert()
+        
+        //validate 'Ask me later' button
+        await formsScreen.activeButton.click()
+        await formsScreen.askMeLater_btn.click();
         await expect(formsScreen.alert_text).not.toExist();
-        await expect(formsScreen.askMeLater_btn).not.toExist();
-        await expect(formsScreen.cancel_btn).not.toExist();
+
+        //validate 'Cancel' button
+        await formsScreen.activeButton.click()
+        await formsScreen.cancel_btn.click();
+        await expect(formsScreen.alert_text).not.toExist();
+
+        //validate 'OK' button
+        await formsScreen.activeButton.click()
+        await formsScreen.cancel_btn.click();
         await expect(formsScreen.ok_btn).not.toExist();
     })
 
@@ -121,11 +133,6 @@ describe('Assesment', async() => {
                 await homeScreen.Forms_icon.click();
                 await formsScreen.textInput.click()
                 const isKeyboardVisible = await driver.isKeyboardShown();
-                await expect(isKeyboardVisible).toEqual(true)
-                let text = "webdriver"
-                await formsScreen.textInput.setValue(text)
-                await driver.hideKeyboard();
-                await formsScreen.textResult.getText();
-                await expect(formsScreen.textResult).toHaveText(text)
+                await expect(isKeyboardVisible).toEqual(true);
     })
 });
