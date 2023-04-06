@@ -17,7 +17,10 @@ class formsScreen{
     get SelectItem_dd_options(){
         return $$('//*[@resource-id="android:id/text1"]')
     }   
-    get selectfirstoption(){
+    get webdriverIO_option(){
+        return $('//*[@text="webdriver.io is awesome"]')
+    }
+    get selectedOption(){
         return $('//*[@text="webdriver.io is awesome"]')
     }
     get screenBoundary(){
@@ -34,6 +37,15 @@ class formsScreen{
     }
     get alert_text(){
         return $('//*[@resource-id="android:id/alertTitle"]')
+    }
+    get askMeLater_btn(){
+        return $('//*[@resource-id="android:id/button3"]')
+    }
+    get cancel_btn(){
+        return $('//*[@resource-id="android:id/button2"]')
+    }
+    get ok_btn(){
+        return $('//*[@resource-id="android:id/button1"]')
     }
 }
 module.exports = new formsScreen();

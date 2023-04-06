@@ -5,6 +5,7 @@ const HomeScreen = require('../pageobjects/homeScreen.js')
 const formsScreen = require('../pageobjects/formsScreen.js');
 const homeScreen = require('../pageobjects/homeScreen.js');
 
+
 describe('Assesment', async() => {  
     
     it('Validate the default selection of the tab', async() => {
@@ -67,9 +68,15 @@ describe('Assesment', async() => {
         let elements = await formsScreen.SelectItem_dd_options
         for(let ele of elements){
             actualList.push(await ele.getText());
-        }        
-        await expect(expectedList).toEqual(actualList)
-        await formsScreen.selectfirstoption.click()
+        }     
+        //validation for all the options   
+        await expect(expectedList).toEqual(actualList) 
+        await formsScreen.webdriverIO_option.click()
+
+        //validation for selected option
+        let selectedoption = await formsScreen.selectedOption.getText() 
+        expect(selectedoption).toEqual('webdriver.io is awesome')
+
     })
 
     it('Validate that all options from picker elements are visible within the screen.//Compared using bounds attribute',async()=>{ 
@@ -92,7 +99,6 @@ describe('Assesment', async() => {
         if(allPickerElementsVisible){
             await formsScreen.selectfirstoption.click()
         }
-   
     })
 
     it('Validate that Inactive button is not interactable',async()=>{        
@@ -106,11 +112,17 @@ describe('Assesment', async() => {
         let alertText = await driver.getAlertText();
         await driver.dismissAlert()
         await expect(formsScreen.alert_text).not.toExist();
+        await expect(formsScreen.askMeLater_btn).not.toExist();
+        await expect(formsScreen.cancel_btn).not.toExist();
+        await expect(formsScreen.ok_btn).not.toExist();
     })
 
     it('Validate that keyboard is available to provide input in the text',async()=>{  
                 await homeScreen.Forms_icon.click();
                 await formsScreen.textInput.click()
+                const isKeyboardVisible = await driver.isKeyboardShown();
+                // expect(isKeyboardVisible).to.be.true;
+                await expect(isKeyboardVisible).toEqual(true)
                 let text = "webdriver"
                 await formsScreen.textInput.setValue(text)
                 await driver.hideKeyboard();
