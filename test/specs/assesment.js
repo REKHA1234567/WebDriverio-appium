@@ -69,14 +69,19 @@ describe('Assesment', async() => {
         for(let ele of elements){
             actualList.push(await ele.getText());
         }     
+
         //validation for all the options   
         await expect(expectedList).toEqual(actualList) 
-        await formsScreen.webdriverIO_option.click()
-
+        
         //validation for selected option
-        let selectedoption = await formsScreen.selectedOption.getText() 
-        expect(selectedoption).toEqual('webdriver.io is awesome')
-
+        let option_text = ['webdriver.io is awesome','Appium is awesome','This app is awesome']
+        let options_ele = [formsScreen.webdriverIO_option, formsScreen.app_option, formsScreen.app_option]
+      
+        for(let index=0; index<options_ele.length; index++){      
+                await options_ele[index].click();
+                let selectedoption = await formsScreen.selected_option.getText()
+                expect(selectedoption).toEqual(option_text[index])
+            }
     })
 
     it('Validate that all options from picker elements are visible within the screen.//Compared using bounds attribute',async()=>{ 
@@ -135,4 +140,5 @@ describe('Assesment', async() => {
                 const isKeyboardVisible = await driver.isKeyboardShown();
                 await expect(isKeyboardVisible).toEqual(true);
     })
+
 });

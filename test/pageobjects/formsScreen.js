@@ -20,8 +20,14 @@ class formsScreen{
     get webdriverIO_option(){
         return $('//*[@text="webdriver.io is awesome"]')
     }
-    get selectedOption(){
-        return $('//*[@text="webdriver.io is awesome"]')
+    get appium_option(){
+        return $('//*[@text="Appium is awesome"]')
+    }
+    get app_option(){
+        return $('//*[@text="This app is awesome"]')
+    }
+    get selected_option(){
+        return $('//android.view.ViewGroup[@content-desc="Dropdown"]/android.view.ViewGroup/android.widget.EditText')
     }
     get screenBoundary(){
         return $('//*[@resource-id="com.wdiodemoapp:id/select_dialog_listview"]')
